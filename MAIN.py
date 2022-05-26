@@ -1,5 +1,7 @@
 import csv
 import time
+
+import openpyxl
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
@@ -81,6 +83,13 @@ def gather_data_today():
                 )
             )
 
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        with open("announces_today.csv", "r", encoding='utf-8') as f:
+            for row in csv.reader(f):
+                ws.append(row)
+        wb.save("announces_today.xlsx")
+
 
 def gather_data_tomorrow():
     with open("announces_tomorrow.html", 'r', encoding='utf-8') as file:
@@ -130,6 +139,13 @@ def gather_data_tomorrow():
                     time
                 )
             )
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        with open("announces_tomorrow.csv", "r", encoding='utf-8') as f:
+            for row in csv.reader(f):
+                ws.append(row)
+        wb.save("announces_tomorrow.xlsx")
 
 
 def main():
